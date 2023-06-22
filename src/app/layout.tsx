@@ -1,12 +1,15 @@
 import "@/styles/globals.css"
 import { Metadata } from "next"
+import Link from "next/link"
 
 import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
-import { SiteHeader } from "@/components/site-header"
+import { buttonVariants } from "@/components/ui/button"
+import { Navbar } from "@/components/navbar"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export const metadata: Metadata = {
   title: {
@@ -42,7 +45,19 @@ export default function RootLayout({ children }: RootLayoutProps) {
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="relative flex min-h-screen flex-col">
-              <SiteHeader />
+              {/* Navbar Reusable Navbar: left side -> Main Nav/ right side -> Children*/}
+              <Navbar config={siteConfig}>
+                <ThemeToggle />
+                <Link
+                  href="/login"
+                  className={cn(
+                    buttonVariants({ variant: "secondary", size: "sm" }),
+                    "px-4"
+                  )}
+                >
+                  Login
+                </Link>
+              </Navbar>
               <div className="flex-1">{children}</div>
             </div>
             <TailwindIndicator />
