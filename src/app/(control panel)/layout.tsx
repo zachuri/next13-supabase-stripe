@@ -1,26 +1,22 @@
-import { cookies } from "next/headers"
 import { createServerComponent } from "utils/supabase-server"
 
-import { Profile } from "@/types/profile"
 import { controlPanelConfig } from "@/config/control-panel"
 import { ControlPanelNav } from "@/components/control-panel-nav"
-// import { DashboardNav } from "@/components/nav"
 import { Navbar } from "@/components/navbar"
 import { SiteFooter } from "@/components/site-footer"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { UserAccountNav } from "@/components/user-account-nav"
 
-interface DashboardLayoutProps {
+interface ControlPanelLayoutProps {
   children?: React.ReactNode
 }
-
 export default async function DashboardLayout({
   children,
-}: DashboardLayoutProps) {
+}: ControlPanelLayoutProps) {
   const supabase = createServerComponent()
   const session = await supabase.auth.getSession()
 
-  const { data: profiles } = await supabase
+  const { data: profile } = await supabase
     .from("profiles")
     .select("*")
     .eq("id", session.data.session?.user.id)
@@ -32,9 +28,9 @@ export default async function DashboardLayout({
         <ThemeToggle />
         <UserAccountNav
           user={{
-            username: profiles?.username ?? null,
-            full_name: profiles?.full_name ?? null,
-            image: profiles?.avatar_url ?? null,
+            username: profile?.username ?? null,
+            full_name: profile?.full_name ?? null,
+            image: profile?.avatar_url ?? null,
             email: session.data.session?.user.email,
           }}
         />
