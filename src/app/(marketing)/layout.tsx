@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <Navbar config={siteConfig}>
+      <Navbar mainNav={siteConfig.mainNav}>
         <ThemeToggle />
         <Link
           href="/login"
