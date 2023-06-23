@@ -20,12 +20,12 @@ export const controlPanelConfig: ControlPanelConfig = {
     },
     {
       title: "Billing",
-      href: "/dashboard/billing",
+      href: "/billing",
       icon: "billing",
     },
     {
       title: "Settings",
-      href: "/dashboard/settings",
+      href: "/settings",
       icon: "settings",
     },
   ],
