@@ -126,7 +126,7 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "github",
       options: {
-        redirectTo: `${getURL()}/dashboard`,
+        redirectTo: `${getURL()}/login`,
       },
     })
 
