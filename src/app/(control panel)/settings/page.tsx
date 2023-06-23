@@ -1,0 +1,45 @@
+import { redirect } from "next/navigation"
+import { createServerComponent } from "utils/supabase-server"
+
+import { getServerSession } from "@/lib/session"
+import { DashboardHeader } from "@/components/header"
+import { DashboardShell } from "@/components/shell"
+import { UserNameForm } from './user-name-form'
+
+// import { UserNameForm } from "@/components/user-name-form"
+
+export const metadata = {
+  title: "Settings",
+  description: "Manage account and website settings.",
+}
+
+export default async function SettingsPage() {
+  const supabase = createServerComponent()
+  const session = await getServerSession()
+
+  const { data: profiles } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", session.user.id)
+    .single()
+
+  return (
+    <DashboardShell>
+      <DashboardHeader
+        heading="Settings"
+        text="Manage account and website settings."
+      />
+      <div className="grid gap-10">
+        <UserNameForm
+          user={{
+            id: session.user.id,
+            full_name: profiles?.full_name || "",
+            username: profiles?.username || "",
+            avatar_url: profiles?.avatar_url || "",
+            website: profiles?.website || "",
+          }}
+        />
+      </div>
+    </DashboardShell>
+  )
+}
