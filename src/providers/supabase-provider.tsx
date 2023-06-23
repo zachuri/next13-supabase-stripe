@@ -1,25 +1,35 @@
 "use client"
 
-import { useState } from "react"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
-import { SessionContextProvider } from "@supabase/auth-helpers-react"
+import { createContext, useContext, useState } from "react"
+import type { Session } from "@supabase/auth-helpers-nextjs"
+import { createClientComponent } from "utils/supabase-client"
 
-import { Database } from "@/types/supabase.db"
+import type { TypedSupabaseClient } from "@/app/layout"
 
-interface SupabaseProviderProps {
-  children: React.ReactNode
+type MaybeSession = Session | null
+
+type SupabaseContext = {
+  supabase: TypedSupabaseClient
+  session: MaybeSession
 }
 
-const SupabaseProvider: React.FC<SupabaseProviderProps> = ({ children }) => {
-  const [supabaseClient] = useState(() =>
-    createClientComponentClient<Database>()
-  )
+// @ts-ignore
+const Context = createContext<SupabaseContext>()
+
+export default function SupabaseProvider({
+  children,
+  session,
+}: {
+  children: React.ReactNode
+  session: MaybeSession
+}) {
+  const [supabase] = useState(() => createClientComponent())
 
   return (
-    <SessionContextProvider supabaseClient={supabaseClient}>
-      {children}
-    </SessionContextProvider>
+    <Context.Provider value={{ supabase, session }}>
+      <>{children}</>
+    </Context.Provider>
   )
 }
 
-export default SupabaseProvider
+export const useSupabase = () => useContext(Context)
