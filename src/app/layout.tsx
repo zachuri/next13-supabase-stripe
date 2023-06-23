@@ -1,6 +1,8 @@
 import "@/styles/globals.css"
 import { Metadata } from "next"
 import Link from "next/link"
+import SupabaseProvider from "@/providers/supabase-provider"
+import UserProvider from "@/providers/user-provider"
 
 import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
@@ -44,13 +46,21 @@ export default function RootLayout({ children }: RootLayoutProps) {
             fontSans.variable
           )}
         >
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="relative flex min-h-screen flex-col">
-              <div className="flex-1">{children}</div>
-            </div>
-            <Toaster />
-            <TailwindIndicator />
-          </ThemeProvider>
+          <SupabaseProvider>
+            <UserProvider>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+              >
+                <div className="relative flex min-h-screen flex-col">
+                  <div className="flex-1">{children}</div>
+                </div>
+                <Toaster />
+                <TailwindIndicator />
+              </ThemeProvider>
+            </UserProvider>
+          </SupabaseProvider>
         </body>
       </html>
     </>
