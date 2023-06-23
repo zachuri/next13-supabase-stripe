@@ -46,19 +46,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="relative flex min-h-screen flex-col">
-              {/* Navbar Reusable Navbar: left side -> Main Nav/ right side -> Children*/}
-              <Navbar config={siteConfig}>
-                <ThemeToggle />
-                <Link
-                  href="/login"
-                  className={cn(
-                    buttonVariants({ variant: "secondary", size: "sm" }),
-                    "px-4"
-                  )}
-                >
-                  Login
-                </Link>
-              </Navbar>
               <div className="flex-1">{children}</div>
             </div>
             <Toaster />
