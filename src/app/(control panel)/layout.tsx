@@ -1,5 +1,7 @@
+import { cookies } from "next/headers"
 import { createServerComponent } from "utils/supabase-server"
 
+import { Profile } from "@/types/profile"
 import { controlPanelConfig } from "@/config/control-panel"
 import { ControlPanelNav } from "@/components/control-panel-nav"
 // import { DashboardNav } from "@/components/nav"
@@ -22,6 +24,7 @@ export default async function DashboardLayout({
     .from("profiles")
     .select("*")
     .eq("id", session.data.session?.user.id)
+    .single()
 
   return (
     <div className="flex min-h-screen flex-col space-y-6">
@@ -29,9 +32,9 @@ export default async function DashboardLayout({
         <ThemeToggle />
         <UserAccountNav
           user={{
-            username: profiles?.[0]?.username ?? null,
-            full_name: profiles?.[0]?.full_name ?? null,
-            image: profiles?.[0]?.avatar_url ?? null,
+            username: profiles?.username ?? null,
+            full_name: profiles?.full_name ?? null,
+            image: profiles?.avatar_url ?? null,
             email: session.data.session?.user.email,
           }}
         />
