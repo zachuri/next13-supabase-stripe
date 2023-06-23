@@ -1,7 +1,6 @@
 import "@/styles/globals.css"
 import { Metadata } from "next"
-import SupabaseProvider from "@/providers/supabase-provider"
-import SupabaseListener from "@/providers/supbase-listener"
+import SupabaseProvider from "@/providers/supbase-proivder"
 import UserProvider from "@/providers/user-provider"
 import { SupabaseClient } from "@supabase/auth-helpers-nextjs"
 
@@ -49,8 +48,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             fontSans.variable
           )}
         >
-          <SupabaseProvider session={session}>
-            <SupabaseListener serverAccessToken={session?.access_token} />
+          <SupabaseProvider>
             <UserProvider>
               <ThemeProvider
                 attribute="class"
