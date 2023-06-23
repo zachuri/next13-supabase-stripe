@@ -6,7 +6,6 @@ import { SupabaseClient } from "@supabase/auth-helpers-nextjs"
 
 import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
-import { getServerSession } from "@/lib/session"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/toaster"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
@@ -36,8 +35,6 @@ interface RootLayoutProps {
 }
 
 export default async function RootLayout({ children }: RootLayoutProps) {
-  const session = await getServerSession()
-
   return (
     <>
       <html lang="en" suppressHydrationWarning>
