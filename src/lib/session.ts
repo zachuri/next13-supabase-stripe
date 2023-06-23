@@ -19,14 +19,7 @@ export const getServerSession = async (): Promise<Session> => {
   return data.session as Session
 }
 
-export const getClientSession = async (): Promise<Session> => {
-  const supabase = createClientComponentClient()
-
-  const { data, error } = await supabase.auth.getSession()
-
-  if (error) {
-    console.log(error.message)
-  }
-
-  return data.session as Session
-}
+/*
+  Notes
+    - to get server Session -> useUser hook
+*/
