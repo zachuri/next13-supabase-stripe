@@ -1,6 +1,8 @@
+import { notFound } from "next/navigation"
 import { createSupabaseServerClient } from "utils/supabase-server"
 
 import { controlPanelConfig } from "@/config/control-panel"
+import { getServerSession } from "@/lib/session"
 import { ControlPanelNav } from "@/components/control-panel-nav"
 import { Navbar } from "@/components/navbar"
 import { SiteFooter } from "@/components/site-footer"
@@ -14,12 +16,14 @@ export default async function DashboardLayout({
   children,
 }: ControlPanelLayoutProps) {
   const supabase = createSupabaseServerClient()
-  const session = await supabase.auth.getSession()
+  const session = await getServerSession()
+
+  if (!session) notFound()
 
   const { data: profile } = await supabase
     .from("profiles")
     .select("*")
-    .eq("id", session.data.session?.user.id)
+    .eq("id", session.user.id)
     .single()
 
   return (
@@ -31,7 +35,7 @@ export default async function DashboardLayout({
             username: profile?.username ?? null,
             full_name: profile?.full_name ?? null,
             image: profile?.avatar_url ?? null,
-            email: session.data.session?.user.email,
+            email: session.user.email ?? null,
           }}
         />
       </Navbar>
