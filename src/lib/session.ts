@@ -1,14 +1,8 @@
-import { cookies } from "next/headers"
-import {
-  Session,
-  createClientComponentClient,
-  createServerComponentClient,
-} from "@supabase/auth-helpers-nextjs"
+import { Session } from "@supabase/auth-helpers-nextjs"
+import { createServerComponent } from "utils/supabase-server"
 
 export const getServerSession = async (): Promise<Session> => {
-  const supabase = createServerComponentClient({
-    cookies: cookies,
-  })
+  const supabase = createServerComponent()
 
   const { data, error } = await supabase.auth.getSession()
 
