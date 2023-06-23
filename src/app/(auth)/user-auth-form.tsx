@@ -29,7 +29,7 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
-    resolver: zodResolver(userAuthSchema),
+    resolver: zodResolver(getValidationSchema(type)),
   })
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false)
@@ -47,6 +47,15 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
 
     void checkSession()
   })
+
+  function getValidationSchema(type: string) {
+    if (type === "login") {
+      return userAuthSchema.omit({ confirmPassword: true }).extend({
+        password: z.string().min(6),
+      })
+    }
+    return userAuthSchema
+  }
 
   async function onSubmit(data: FormData) {
     if (type === "register") {
@@ -169,20 +178,22 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
               </p>
             )}
             {type === "register" && (
-              <Input
-                id="confirmPassword"
-                placeholder="re-enter password"
-                type="password"
-                autoCapitalize="none"
-                autoCorrect="off"
-                disabled={isLoading || isGitHubLoading}
-                {...register("confirmPassword")}
-              />
-            )}
-            {errors?.confirmPassword && (
-              <p className="px-1 text-xs text-red-600">
-                {errors.confirmPassword.message}
-              </p>
+              <>
+                <Input
+                  id="confirmPassword"
+                  placeholder="re-enter password"
+                  type="password"
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  disabled={isLoading || isGitHubLoading}
+                  {...register("confirmPassword")}
+                />
+                {errors?.confirmPassword && (
+                  <p className="px-1 text-xs text-red-600">
+                    {errors.confirmPassword.message}
+                  </p>
+                )}
+              </>
             )}
           </div>
           <button className={cn(buttonVariants())} disabled={isLoading}>
