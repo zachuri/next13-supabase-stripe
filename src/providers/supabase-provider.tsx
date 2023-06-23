@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState } from "react"
 import type { Session } from "@supabase/auth-helpers-nextjs"
-import { createClientComponent } from "utils/supabase-client"
+import { createSupabaseBrowserClient } from "utils/supabase-client"
 
 import type { TypedSupabaseClient } from "@/app/layout"
 
@@ -23,7 +23,7 @@ export default function SupabaseProvider({
   children: React.ReactNode
   session: MaybeSession
 }) {
-  const [supabase] = useState(() => createClientComponent())
+  const [supabase] = useState(() => createSupabaseBrowserClient())
 
   return (
     <Context.Provider value={{ supabase, session }}>

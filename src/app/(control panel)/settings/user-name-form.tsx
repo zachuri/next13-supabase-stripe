@@ -5,7 +5,7 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { createClientComponent } from "utils/supabase-client"
+import { createSupabaseBrowserClient } from "utils/supabase-client"
 import * as z from "zod"
 
 import { Profile } from "@/types/profile"
@@ -36,7 +36,7 @@ interface UserNameFormProps extends React.HTMLAttributes<HTMLFormElement> {
 type FormData = z.infer<typeof userNameSchema>
 
 export function UserNameForm({ user, className, ...props }: UserNameFormProps) {
-  const supabase = createClientComponent()
+  const supabase = createSupabaseBrowserClient()
 
   const router = useRouter()
   const {

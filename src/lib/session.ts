@@ -1,8 +1,8 @@
 import { Session } from "@supabase/auth-helpers-nextjs"
-import { createServerComponent } from "utils/supabase-server"
+import { createSupabaseServerClient } from "utils/supabase-server"
 
 export const getServerSession = async (): Promise<Session> => {
-  const supabase = createServerComponent()
+  const supabase = createSupabaseServerClient()
 
   const { data, error } = await supabase.auth.getSession()
 

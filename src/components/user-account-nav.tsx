@@ -5,7 +5,7 @@ import Link from "next/link"
 // import { signOut } from "next-auth/react"
 
 import { useRouter } from "next/navigation"
-import { createClientComponent } from "utils/supabase-client"
+import { createSupabaseBrowserClient } from "utils/supabase-client"
 
 import {
   DropdownMenu,
@@ -29,7 +29,7 @@ interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function UserAccountNav({ user }: UserAccountNavProps) {
   const router = useRouter()
-  const supabase = createClientComponent()
+  const supabase = createSupabaseBrowserClient()
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()

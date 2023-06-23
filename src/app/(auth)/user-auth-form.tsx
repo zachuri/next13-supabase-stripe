@@ -4,8 +4,8 @@ import * as React from "react"
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { useForm } from "react-hook-form"
+import { createSupabaseBrowserClient } from "utils/supabase-client"
 import * as z from "zod"
 
 import { getURL } from "@/lib/url"
@@ -33,7 +33,7 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
   })
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false)
-  const supabase = createClientComponentClient()
+  const supabase = createSupabaseBrowserClient()
   const router = useRouter()
   const redirectUrl = "/dashboard"
 

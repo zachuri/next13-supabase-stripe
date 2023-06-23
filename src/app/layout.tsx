@@ -4,7 +4,6 @@ import SupabaseProvider from "@/providers/supabase-provider"
 import SupabaseListener from "@/providers/supbase-listener"
 import UserProvider from "@/providers/user-provider"
 import { SupabaseClient } from "@supabase/auth-helpers-nextjs"
-import { createServerComponent } from "utils/supabase-server"
 
 import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"

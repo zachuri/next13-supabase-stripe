@@ -1,10 +1,10 @@
-import { redirect } from "next/navigation"
-import { createServerComponent } from "utils/supabase-server"
+import { createSupabaseServerClient } from "utils/supabase-server"
 
 import { getServerSession } from "@/lib/session"
 import { DashboardHeader } from "@/components/header"
 import { DashboardShell } from "@/components/shell"
-import { UserNameForm } from './user-name-form'
+
+import { UserNameForm } from "./user-name-form"
 
 // import { UserNameForm } from "@/components/user-name-form"
 
@@ -14,7 +14,7 @@ export const metadata = {
 }
 
 export default async function SettingsPage() {
-  const supabase = createServerComponent()
+  const supabase = createSupabaseServerClient()
   const session = await getServerSession()
 
   const { data: profiles } = await supabase

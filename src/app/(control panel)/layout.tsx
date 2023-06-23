@@ -1,4 +1,4 @@
-import { createServerComponent } from "utils/supabase-server"
+import { createSupabaseServerClient } from "utils/supabase-server"
 
 import { controlPanelConfig } from "@/config/control-panel"
 import { ControlPanelNav } from "@/components/control-panel-nav"
@@ -13,7 +13,7 @@ interface ControlPanelLayoutProps {
 export default async function DashboardLayout({
   children,
 }: ControlPanelLayoutProps) {
-  const supabase = createServerComponent()
+  const supabase = createSupabaseServerClient()
   const session = await supabase.auth.getSession()
 
   const { data: profile } = await supabase
