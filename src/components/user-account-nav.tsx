@@ -34,7 +34,7 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
-    router.push("/login")
+    router.push("/login", { replace: true })
   }
 
   return (
