@@ -53,6 +53,15 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
       setIsLoading(true)
       const email = data.email
       const password = data.password
+      const confirmPassword = data.confirmPassword
+
+      if (password !== confirmPassword) {
+        return toast({
+          title: "Something went wrong.",
+          description: "Passwords don't match",
+          variant: "destructive",
+        })
+      }
 
       const { error } = await supabase.auth.signUp({
         email,
@@ -132,13 +141,18 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
             <Input
               id="email"
               placeholder="name@example.com"
-              type="email"
+              // type="email"
               autoCapitalize="none"
               autoComplete="email"
               autoCorrect="off"
               disabled={isLoading || isGitHubLoading}
               {...register("email")}
             />
+            {errors?.email && (
+              <p className="px-1 text-xs text-red-600">
+                {errors.email.message}
+              </p>
+            )}
             <Input
               id="password"
               placeholder="password"
@@ -148,9 +162,26 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
               disabled={isLoading || isGitHubLoading}
               {...register("password")}
             />
-            {errors?.email && (
+
+            {errors?.password && (
               <p className="px-1 text-xs text-red-600">
-                {errors.email.message}
+                {errors.password.message}
+              </p>
+            )}
+            {type === "register" && (
+              <Input
+                id="confirmPassword"
+                placeholder="re-enter password"
+                type="password"
+                autoCapitalize="none"
+                autoCorrect="off"
+                disabled={isLoading || isGitHubLoading}
+                {...register("confirmPassword")}
+              />
+            )}
+            {errors?.confirmPassword && (
+              <p className="px-1 text-xs text-red-600">
+                {errors.confirmPassword.message}
               </p>
             )}
           </div>
