@@ -1,18 +1,19 @@
 import "@/styles/globals.css"
 import { Metadata } from "next"
-import Link from "next/link"
 import SupabaseProvider from "@/providers/supabase-provider"
+import SupabaseListener from "@/providers/supbase-listener"
 import UserProvider from "@/providers/user-provider"
+import { SupabaseClient } from "@supabase/auth-helpers-nextjs"
+import { createServerComponent } from "utils/supabase-server"
 
 import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
 import { Toaster } from "@/components/ui/toaster"
-import { Navbar } from "@/components/navbar"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
-import { ThemeToggle } from "@/components/theme-toggle"
+
+export type TypedSupabaseClient = SupabaseClient
 
 export const metadata: Metadata = {
   title: {
@@ -35,7 +36,13 @@ interface RootLayoutProps {
   children: React.ReactNode
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default async function RootLayout({ children }: RootLayoutProps) {
+  const supabase = createServerComponent()
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
+
   return (
     <>
       <html lang="en" suppressHydrationWarning>
@@ -46,7 +53,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
             fontSans.variable
           )}
         >
-          <SupabaseProvider>
+          <SupabaseProvider session={session}>
+            <SupabaseListener serverAccessToken={session?.access_token} />
             <UserProvider>
               <ThemeProvider
                 attribute="class"
