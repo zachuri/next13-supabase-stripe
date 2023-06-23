@@ -5,6 +5,7 @@ import Link from "next/link"
 // import { signOut } from "next-auth/react"
 
 import { useRouter } from "next/navigation"
+import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { createSupabaseBrowserClient } from "utils/supabase-client"
 
 import {
@@ -29,12 +30,11 @@ interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function UserAccountNav({ user }: UserAccountNavProps) {
   const router = useRouter()
-  const supabase = createSupabaseBrowserClient()
+  const supabase = useSupabaseClient()
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
-    router.refresh()
-    // router.push(`${window.location.origin}/login`)
+    router.push("/login")
   }
 
   return (
@@ -70,12 +70,8 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="cursor-pointer"
-          onSelect={(event) => {
-            event.preventDefault()
+          onSelect={() => {
             handleSignOut()
-            // signOut({
-            //   callbackUrl: `${window.location.origin}/login`,
-            // })
           }}
         >
           Sign out
