@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation"
+import { redirect } from "next/navigation"
 import { createSupabaseServerClient } from "utils/supabase-server"
 
 import { controlPanelConfig } from "@/config/control-panel"
@@ -18,7 +18,7 @@ export default async function DashboardLayout({
   const supabase = createSupabaseServerClient()
   const session = await getServerSession()
 
-  if (!session) notFound()
+  if (!session) redirect("/login")
 
   const { data: profile } = await supabase
     .from("profiles")
