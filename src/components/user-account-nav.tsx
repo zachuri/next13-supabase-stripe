@@ -5,8 +5,8 @@ import Link from "next/link"
 // import { signOut } from "next-auth/react"
 
 import { useRouter } from "next/navigation"
+import { createSupabaseBrowserClient } from "@/utils/supabase-client"
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
-import { createSupabaseBrowserClient } from "utils/supabase-client"
 
 import {
   DropdownMenu,

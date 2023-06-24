@@ -3,9 +3,9 @@
 import * as React from "react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
+import { createSupabaseBrowserClient } from "@/utils/supabase-client"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { createSupabaseBrowserClient } from "utils/supabase-client"
 import * as z from "zod"
 
 import { Profile } from "@/types/profile"

@@ -3,9 +3,9 @@
 import * as React from "react"
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
+import { createSupabaseBrowserClient } from "@/utils/supabase-client"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { createSupabaseBrowserClient } from "utils/supabase-client"
 import * as z from "zod"
 
 import { getURL } from "@/lib/url"

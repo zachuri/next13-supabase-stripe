@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation"
-import { createSupabaseServerClient } from "utils/supabase-server"
+import { createSupabaseServerClient } from "@/utils/supabase-server"
 
 import { controlPanelConfig } from "@/config/control-panel"
 import { getServerSession } from "@/lib/session"

@@ -1,4 +1,4 @@
-import { createSupabaseServerClient } from "utils/supabase-server"
+import { createSupabaseServerClient } from "@/utils/supabase-server"
 
 import { getServerSession } from "@/lib/session"
 import { DashboardHeader } from "@/components/header"
