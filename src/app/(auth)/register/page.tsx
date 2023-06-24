@@ -6,10 +6,6 @@ import { Icons } from "@/components/icons"
 
 import { UserAuthForm } from "../user-auth-form"
 
-// import { UserAuthForm } from "@/components/user-auth-form"
-
-// import { UserAuthForm } from "@/components/user-auth-form"
-
 export const metadata = {
   title: "Create an account",
   description: "Create an account to get started.",
