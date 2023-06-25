@@ -3,8 +3,8 @@ import { NextResponse } from "next/server"
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
 
 import { stripe } from "@/lib/stripe"
-import { getURL } from "@/lib/utils"
 import { createOrRetrieveCustomer } from "@/lib/supabase-admin"
+import { getURL } from "@/lib/utils"
 
 export async function POST(request: Request) {
   const { price, quantity = 1, metadata = {} } = await request.json()
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
         metadata,
       },
       success_url: `${getURL()}/billing`,
-      cancel_url: `${getURL()}/`,
+      cancel_url: `${getURL()}/billing`,
     })
 
     return NextResponse.json({ sessionId: session.id })
