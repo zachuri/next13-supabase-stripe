@@ -30,7 +30,9 @@ export default async function BillingPage() {
   const subscriptionPlan = await getUserSubscriptionPlan(user.id)
 
   // Check if user cancled
-  let isCanceled = subscriptionPlan.cancel_at_period_end || false
+  // if cancel_at_period_end is null default value will equal to false
+  let isCanceled = false
+  isCanceled = subscriptionPlan?.cancel_at_period_end ?? false
 
   // Obtain products from stripe
   const products = await getActiveProductsWithPrices()
