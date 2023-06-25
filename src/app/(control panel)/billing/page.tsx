@@ -21,13 +21,12 @@ export const metadata = {
 export default async function BillingPage() {
   // Get user session from server
   const session = await getServerSession()
-  const user = session.user
 
   // check if user is logged in
-  if (!user) redirect("/login")
+  if (!session.user) redirect("/login")
 
   // If user has a pro plan, check cancel status on Stripe.
-  const subscriptionPlan = await getUserSubscriptionPlan(user.id)
+  const subscriptionPlan = await getUserSubscriptionPlan(session.user.id)
 
   // Check if user cancled
   // if cancel_at_period_end is null default value will equal to false
@@ -48,8 +47,8 @@ export default async function BillingPage() {
           <Icons.warning />
           <AlertTitle>This is a demo app.</AlertTitle>
           <AlertDescription>
-            Taxonomy app is a demo app using a Stripe test environment. You can
-            find a list of test card numbers on the{" "}
+            This app is a demo app using a Stripe test environment. You can find
+            a list of test card numbers on the{" "}
             <a
               href="https://stripe.com/docs/testing#cards"
               target="_blank"
