@@ -12,7 +12,7 @@ interface Props {
   serverAccessToken?: string
 }
 
-export default function SupabaseListener({ serverAccessToken }: Props) {
+export default function SupabaseAuthListener({ serverAccessToken }: Props) {
   // Obtain supabaseClientComponnt from SessionContextProvider
   const { supabaseClient } = useSessionContext()
 
@@ -29,9 +29,13 @@ export default function SupabaseListener({ serverAccessToken }: Props) {
         router.refresh()
       }
 
-      if (event === "SIGNED_OUT") {
+      if (
+        event === "SIGNED_OUT" ||
+        !session?.expires_at ||
+        session?.expires_at <= Math.floor(Date.now() / 1000)
+      ) {
         // Delete cookies when the user signs out
-        router.push("/login", {replace: true}) // Redirect to the login page
+        router.push("/login", { replace: true }) // Redirect to the login page
       }
     })
 

@@ -5,7 +5,7 @@ import { createSupabaseBrowserClient } from "@/utils/supabase-client"
 import { Session } from "@supabase/auth-helpers-nextjs"
 import { SessionContextProvider } from "@supabase/auth-helpers-react"
 
-import SupabaseListener from "./supabase-listener"
+import SupabaseAuthListener from "./supabase-auth-listener"
 
 type MaybeSession = Session | null
 
@@ -26,7 +26,7 @@ const SupabaseProvider: React.FC<SupabaseProviderProps> = ({
       {/* SupabaseListenr -> anytime user logs in/out: it rerender when session changes */}
       {/* had problems when logged out, would be session of orignal user  */}
       {/* this fixes the problem! */}
-      <SupabaseListener serverAccessToken={session?.access_token} />
+      <SupabaseAuthListener serverAccessToken={session?.access_token} />
       {children}
     </SessionContextProvider>
   )
