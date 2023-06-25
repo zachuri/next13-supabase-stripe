@@ -3,8 +3,8 @@
 import * as React from "react"
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { createSupabaseBrowserClient } from "@/utils/supabase-client"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useSessionContext } from "@supabase/auth-helpers-react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
@@ -32,13 +32,13 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
   })
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false)
-  const supabase = createSupabaseBrowserClient()
+  const { supabaseClient } = useSessionContext()
   const router = useRouter()
   const redirectUrl = "/dashboard"
 
   useEffect(() => {
     const checkSession = async () => {
-      const { data } = await supabase.auth.getSession()
+      const { data } = await supabaseClient.auth.getSession()
       if (data.session) {
         void router.push(redirectUrl)
       }
@@ -71,7 +71,7 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
         })
       }
 
-      const { error } = await supabase.auth.signUp({
+      const { error } = await supabaseClient.auth.signUp({
         email,
         password,
         options: {
@@ -99,7 +99,7 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
       const email = data.email
       const password = data.password
 
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabaseClient.auth.signInWithPassword({
         email,
         password,
       })
@@ -122,7 +122,7 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
   }
 
   async function signInWithGitHub() {
-    const { error } = await supabase.auth.signInWithOAuth({
+    const { error } = await supabaseClient.auth.signInWithOAuth({
       provider: "github",
       options: {
         redirectTo: `${getURL()}/login`,

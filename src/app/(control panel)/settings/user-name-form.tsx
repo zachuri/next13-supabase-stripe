@@ -1,10 +1,9 @@
 "use client"
 
 import * as React from "react"
-import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { createSupabaseBrowserClient } from "@/utils/supabase-client"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useSessionContext } from "@supabase/auth-helpers-react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
@@ -36,7 +35,7 @@ interface UserNameFormProps extends React.HTMLAttributes<HTMLFormElement> {
 type FormData = z.infer<typeof userNameSchema>
 
 export function UserNameForm({ user, className, ...props }: UserNameFormProps) {
-  const supabase = createSupabaseBrowserClient()
+  const { supabaseClient } = useSessionContext()
 
   const router = useRouter()
   const {
@@ -56,7 +55,7 @@ export function UserNameForm({ user, className, ...props }: UserNameFormProps) {
   async function onSubmit(data: FormData) {
     setIsSaving(true)
 
-    const { data: response, error } = await supabase
+    const { data: response, error } = await supabaseClient
       .from("profiles")
       .update({
         username: data.username,

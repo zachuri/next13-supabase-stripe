@@ -76,8 +76,6 @@ export function BillingForm({
     }
   }
 
-  const user = useUser()
-
   return (
     <Card>
       <CardHeader>
@@ -112,7 +110,7 @@ export function BillingForm({
                             className={cn(buttonVariants())}
                             disabled={isLoading}
                             onClick={() => {
-                              user.subscription?.status === "active"
+                              subscriptionPlan?.status === "active"
                                 ? redirectToCustomerPortal()
                                 : onSubmit(price)
                             }}
