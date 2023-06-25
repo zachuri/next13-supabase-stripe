@@ -2,15 +2,10 @@
 
 import { useState } from "react"
 import { createSupabaseBrowserClient } from "@/utils/supabase-client"
-import {
-  Session,
-  createClientComponentClient,
-} from "@supabase/auth-helpers-nextjs"
+import { Session } from "@supabase/auth-helpers-nextjs"
 import { SessionContextProvider } from "@supabase/auth-helpers-react"
 
-import { Database } from "@/types/supabase.db"
-
-import SupabaseListener from "./supbase-listener"
+import SupabaseListener from "./supabase-listener"
 
 type MaybeSession = Session | null
 
