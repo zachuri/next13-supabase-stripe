@@ -1,14 +1,17 @@
+import { isUint8ClampedArray } from "util/types"
 import { redirect } from "next/navigation"
-import { createSupabaseServerClient } from "@/utils/supabase-server"
 
-import getUserSubscriptionPlan from "@/lib/subscription"
+import { getServerSession } from "@/lib/session"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { BillingForm } from "@/components/billing-form"
 import { DashboardHeader } from "@/components/header"
 import { Icons } from "@/components/icons"
 import { DashboardShell } from "@/components/shell"
 
-import getActiveProductsWithPrices from "./getActiveProductsWithPrices"
+import { BillingForm } from "./billing-form"
+import {
+  getActiveProductsWithPrices,
+  getUserSubscriptionPlan,
+} from "./getStripeData"
 
 export const metadata = {
   title: "Billing",
@@ -16,29 +19,21 @@ export const metadata = {
 }
 
 export default async function BillingPage() {
-  const supabase = createSupabaseServerClient()
-  const session = await supabase.auth.getSession()
+  // Get user session from server
+  const session = await getServerSession()
+  const user = session.user
 
-  const user = session.data.session?.user
-
-  if (!user) {
-    redirect("/login")
-  }
+  // check if user is logged in
+  if (!user) redirect("/login")
 
   // If user has a pro plan, check cancel status on Stripe.
-  let isCanceled = false
-  // if (subscriptionPlan.isPro && subscriptionPlan.stripeSubscriptionId) {
-  //   const stripePlan = await stripe.subscriptions.retrieve(
-  //     subscriptionPlan.stripeSubscriptionId
-  //   )
-  //   isCanceled = stripePlan.cancel_at_period_end
-  // }
+  const subscriptionPlan = await getUserSubscriptionPlan(user.id)
 
+  // Check if user cancled
+  let isCanceled = subscriptionPlan.cancel_at_period_end || false
+
+  // Obtain products from stripe
   const products = await getActiveProductsWithPrices()
-
-  const subscriptionPlan = await getUserSubscriptionPlan({
-    user_id: user.id,
-  })
 
   return (
     <DashboardShell>
@@ -64,8 +59,6 @@ export default async function BillingPage() {
             .
           </AlertDescription>
         </Alert>
-        <h1>USER ID: {user.id}</h1>
-        <h1>SUBSCRIPTION ID ID: {subscriptionPlan?.id}</h1>
         <BillingForm
           subscriptionPlan={subscriptionPlan}
           isCanceled={isCanceled}
