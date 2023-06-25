@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 import { useUser } from "@/hooks/useUser"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -9,6 +9,12 @@ import { CardSkeleton } from "@/components/card-skeleton"
 
 export default function Page() {
   const user = useUser()
+
+  const [userData, setUserData] = useState(user.user)
+
+  useEffect(() => {
+    setUserData(user.user)
+  }, [user])
 
   return (
     <>
@@ -23,8 +29,10 @@ export default function Page() {
               <CardTitle>Dashboard</CardTitle>
             </CardHeader>
             <CardContent>
-              <pre>{user.user?.id}</pre>
-              <pre>{user.user?.email}</pre>
+              <>
+                <h1>{userData?.id}</h1>
+                <h1>{userData?.email}</h1>
+              </>
             </CardContent>
           </Card>
         </>
