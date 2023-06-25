@@ -70,3 +70,5 @@ export default async function RootLayout({ children }: RootLayoutProps) {
     </>
   )
 }
+
+export const dynamic = "force-dynamic"
