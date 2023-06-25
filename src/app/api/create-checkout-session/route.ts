@@ -3,7 +3,7 @@ import { NextResponse } from "next/server"
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
 
 import { stripe } from "@/lib/stripe"
-import { getURL } from "@/lib/stripe-helper"
+import { getURL } from "@/lib/utils"
 import { createOrRetrieveCustomer } from "@/lib/supabase-admin"
 
 export async function POST(request: Request) {
