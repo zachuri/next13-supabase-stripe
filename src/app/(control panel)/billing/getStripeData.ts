@@ -5,11 +5,9 @@
  * `getUserSubscriptionPlan`.
  */
 
-// actions for getting stripe data from supabase
+// Actions for getting stripe data from supabase
 
-import { cookies } from "next/headers"
 import { createSupabaseServerClient } from "@/utils/supabase-server"
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 
 import { ProductWithPrice, Subscription } from "@/types/stripe"
 
