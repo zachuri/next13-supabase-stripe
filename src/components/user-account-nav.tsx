@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useSessionContext } from "@supabase/auth-helpers-react"
 
 import {
@@ -24,10 +25,12 @@ interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function UserAccountNav({ user }: UserAccountNavProps) {
+  const router = useRouter()
   const { supabaseClient } = useSessionContext()
 
   const handleSignOut = async () => {
     await supabaseClient.auth.signOut()
+    router.push("/login", { replace: true })
   }
 
   return (

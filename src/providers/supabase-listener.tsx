@@ -31,7 +31,7 @@ export default function SupabaseListener({ serverAccessToken }: Props) {
 
       if (event === "SIGNED_OUT") {
         // Delete cookies when the user signs out
-        router.push("/login") // Redirect to the login page
+        router.push("/login", {replace: true}) // Redirect to the login page
       }
     })
 
