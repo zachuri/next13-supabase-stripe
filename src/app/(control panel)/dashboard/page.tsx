@@ -14,7 +14,10 @@ export default function Page() {
 
   useEffect(() => {
     setUserData(user.user)
-  }, [user])
+    console.log("Hello:" + userData)
+  }, [user.user, userData])
+
+  console.log(userData)
 
   return (
     <>
@@ -29,10 +32,19 @@ export default function Page() {
               <CardTitle>Dashboard</CardTitle>
             </CardHeader>
             <CardContent>
-              <>
-                <h1>{userData?.id}</h1>
-                <h1>{userData?.email}</h1>
-              </>
+              <CardHeader className="gap-2">
+                {userData ? (
+                  <>
+                    <h1>{userData.id}</h1>
+                    <h1>{userData.email}</h1>
+                  </>
+                ) : (
+                  <>
+                    <Skeleton className="h-5 w-1/5" />
+                    <Skeleton className="h-4 w-4/5" />
+                  </>
+                )}
+              </CardHeader>
             </CardContent>
           </Card>
         </>
