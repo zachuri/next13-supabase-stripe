@@ -8,6 +8,7 @@
 // actions for getting stripe data from supabase
 
 import { cookies } from "next/headers"
+import { createSupabaseServerClient } from "@/utils/supabase-server"
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 
 import { ProductWithPrice, Subscription } from "@/types/stripe"
@@ -15,9 +16,7 @@ import { ProductWithPrice, Subscription } from "@/types/stripe"
 export const getActiveProductsWithPrices = async (): Promise<
   ProductWithPrice[]
 > => {
-  const supabase = createServerComponentClient({
-    cookies: cookies,
-  })
+  const supabase = createSupabaseServerClient()
 
   const { data, error } = await supabase
     .from("products")
@@ -37,9 +36,7 @@ export const getActiveProductsWithPrices = async (): Promise<
 export const getUserSubscriptionPlan = async (
   user_id: string
 ): Promise<Subscription> => {
-  const supabase = createServerComponentClient({
-    cookies: cookies,
-  })
+  const supabase = createSupabaseServerClient()
 
   const { data, error } = await supabase
     .from("subscriptions")
@@ -52,5 +49,5 @@ export const getUserSubscriptionPlan = async (
     console.log(error)
   }
 
-  return data
+  return data as Subscription
 }
