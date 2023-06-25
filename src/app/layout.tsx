@@ -1,11 +1,13 @@
 import "@/styles/globals.css"
 import { Metadata } from "next"
-import SupabaseProvider from "@/providers/supbase-proivder"
+import SupabaseProvider from "@/providers/supbase-provider"
 import UserProvider from "@/providers/user-provider"
+import { createSupabaseServerClient } from "@/utils/supabase-server"
 import { SupabaseClient } from "@supabase/auth-helpers-nextjs"
 
 import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
+import { getServerSession } from "@/lib/session"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/toaster"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
@@ -35,6 +37,9 @@ interface RootLayoutProps {
 }
 
 export default async function RootLayout({ children }: RootLayoutProps) {
+  // Function that get's current session
+  const session = await getServerSession()
+
   return (
     <>
       <html lang="en" suppressHydrationWarning>
@@ -45,7 +50,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             fontSans.variable
           )}
         >
-          <SupabaseProvider>
+          <SupabaseProvider session={session}>
             <UserProvider>
               <ThemeProvider
                 attribute="class"
