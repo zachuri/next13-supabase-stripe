@@ -5,6 +5,7 @@ import {
   CreditCard,
   FileText,
   Laptop,
+  LayoutDashboard,
   Loader2,
   LucideProps,
   Moon,
@@ -38,6 +39,7 @@ export const Icons = {
   post: FileText,
   settings: Settings,
   account: Settings2,
+  layoutDashboard: LayoutDashboard,
   logo: (props: LucideProps) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
