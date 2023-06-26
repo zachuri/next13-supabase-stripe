@@ -3,7 +3,6 @@ import { createSupabaseServerClient } from "@/utils/supabase-server"
 
 import { controlPanelConfig } from "@/config/control-panel"
 import { getServerSession } from "@/lib/session"
-import { ControlPanelNav } from "@/components/control-panel-nav"
 import { Navbar } from "@/components/navbar"
 import { SiteFooter } from "@/components/site-footer"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -39,10 +38,7 @@ export default async function DashboardLayout({
           }}
         />
       </Navbar>
-      <div className="container grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
-        {/* <aside className="hidden w-[200px] flex-col md:flex">
-          <ControlPanelNav items={controlPanelConfig.sidebarNav} />
-        </aside> */}
+      <div className="container flex-1">
         <main className="flex w-full flex-1 flex-col overflow-hidden">
           {children}
         </main>
