@@ -29,14 +29,14 @@ export default function Page() {
         <>
           <Card>
             <CardHeader>
-              <CardTitle>Dashboard</CardTitle>
+              <CardTitle>Profile</CardTitle>
             </CardHeader>
             <CardContent>
               <CardHeader className="gap-2">
                 {userData ? (
                   <>
-                    <h1>{userData.id}</h1>
-                    <h1>{userData.email}</h1>
+                    <h1>User ID:{userData.id}</h1>
+                    <h1>User Email: {userData.email}</h1>
                   </>
                 ) : (
                   <>
