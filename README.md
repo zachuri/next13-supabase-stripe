@@ -17,6 +17,12 @@ Example:
 - Dark mode with `next-themes`
 - Tailwind CSS class sorting, merging and linting.
 
+## Inspiration
+
+I drew inspiration from Shadcn's innovative Taxonomy app, which provided a powerful categorization system. However, to enhance the backend functionality and streamline content management, I implemented Supabase as my backend solution. By integrating Supabase, I was able to efficiently store, organize, and retrieve inspiration content, allowing users to discover and explore curated collections based on the Taxonomy framework. This combination of Shadcn's inspiration and Supabase's backend capabilities resulted in a seamless and engaging experience for users seeking creative inspiration.
+
+[Taxonomy by Shadcn](https://tx.shadcn.com/)
+
 ## Prerequisites
 
 Before you begin, ensure that you have the following installed on your system:
