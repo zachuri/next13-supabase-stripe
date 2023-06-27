@@ -4,7 +4,7 @@ This is a boilerplate project that combines Next.js 13, Supabase, and Stripe to 
 
 Example:
 
-[Working Demo: https://next13-supabase-stripe.zachuri.com/login](https://next13-supabase-stripe.zachuri.com/login)
+[Working Demo: https://next13-supabase-stripe.zachuri.com/login](https://next13-supabase-stripe.zachuri.com)
 
 ## Features
 
@@ -35,7 +35,7 @@ Before you begin, ensure that you have the following installed on your system:
 2. Change into the project directory:
 
    ```
-   cd your-repo
+   cd next13-supabase-stripe
    ```
 
 3. Install the dependencies:
@@ -88,8 +88,10 @@ Before you begin, ensure that you have the following installed on your system:
      - Add a custom domain if needed.
      - Add additional Redirect URLs, including your localhost URL (e.g., **[http://localhost](http://localhost/)**).
 4. SQL Editor:
+
    - Run the following SQL script to create tables and functions for authentication, Stripe, profiles, etc.:
    - Creating Queries for User Profiles and Stripe
+
      ```sql
      /**
      * USERS
@@ -270,6 +272,7 @@ Before you begin, ensure that you have the following installed on your system:
        for table products, prices;
 
      ```
+
 5. Create types for Supabase:
    - Run the following command to generate typescript types:
      ```
@@ -306,4 +309,4 @@ If you have any questions or would like me to make a video on how to setup. Star
 
 ## License
 
-Licensed under the [MIT license](https://github.com/zachuri/next13-supabase-stripe/LICENSE.md).
+Licensed under the [MIT license](https://github.com/zachuri/next13-supabase-stripe/blob/main/LICENSE.md)
