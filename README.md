@@ -2,9 +2,9 @@
 
 This is a boilerplate project that combines Next.js 13, Supabase, and Stripe to provide a starting point for building web applications. It includes a basic setup for integrating Supabase as the backend database and Stripe for handling payments.
 
-Example:
+## Demo
 
-[Working Demo: https://next13-supabase-stripe.zachuri.com/login](https://next13-supabase-stripe.zachuri.com)
+[https://next13-supabase-stripe.zachuri.com/login](https://next13-supabase-stripe.zachuri.com)
 
 ## Features
 
