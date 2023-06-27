@@ -3,9 +3,9 @@ import { redirect } from "next/navigation"
 
 import { getServerSession } from "@/lib/session"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { DashboardHeader } from "@/components/header"
+import { ControlPanelHeader } from "@/components/header"
 import { Icons } from "@/components/icons"
-import { DashboardShell } from "@/components/shell"
+import { ControlPanelShell } from "@/components/shell"
 
 import { BillingForm } from "./billing-form"
 import {
@@ -37,8 +37,8 @@ export default async function BillingPage() {
   const products = await getActiveProductsWithPrices()
 
   return (
-    <DashboardShell>
-      <DashboardHeader
+    <ControlPanelShell>
+      <ControlPanelHeader
         heading="Billing"
         text="Manage billing and your subscription plan."
       />
@@ -66,6 +66,6 @@ export default async function BillingPage() {
           products={products}
         />
       </div>
-    </DashboardShell>
+    </ControlPanelShell>
   )
 }

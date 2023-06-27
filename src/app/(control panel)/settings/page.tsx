@@ -1,8 +1,8 @@
 import { createSupabaseServerClient } from "@/utils/supabase-server"
 
 import { getServerSession } from "@/lib/session"
-import { DashboardHeader } from "@/components/header"
-import { DashboardShell } from "@/components/shell"
+import { ControlPanelHeader } from "@/components/header"
+import { ControlPanelShell } from "@/components/shell"
 
 import { UserNameForm } from "./user-name-form"
 
@@ -24,8 +24,8 @@ export default async function SettingsPage() {
     .single()
 
   return (
-    <DashboardShell>
-      <DashboardHeader
+    <ControlPanelShell>
+      <ControlPanelHeader
         heading="Settings"
         text="Manage account and website settings."
       />
@@ -40,6 +40,6 @@ export default async function SettingsPage() {
           }}
         />
       </div>
-    </DashboardShell>
+    </ControlPanelShell>
   )
 }
