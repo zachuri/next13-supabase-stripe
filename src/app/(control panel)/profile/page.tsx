@@ -1,54 +1,63 @@
-"use client"
-
-import React, { useEffect, useState } from "react"
-
+import { getServerSession } from "@/lib/session"
 import { useUser } from "@/hooks/useUser"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { CardSkeleton } from "@/components/card-skeleton"
+import { Icons } from "@/components/icons"
 
-export default function Page() {
-  const user = useUser()
+import { getUserProfile } from "./getProfileData"
 
-  const [userData, setUserData] = useState(user.user)
-
-  useEffect(() => {
-    setUserData(user.user)
-    console.log("Hello:" + userData)
-  }, [user.user, userData])
-
-  console.log(userData)
+export default async function Page() {
+  const session = await getServerSession()
+  const profile = await getUserProfile(session.user.id)
 
   return (
     <>
-      {user.isLoading ? (
-        <>
-          <CardSkeleton />
-        </>
-      ) : (
-        <>
+      <Card>
+        <CardHeader>
+          <CardTitle>Profile</CardTitle>
+        </CardHeader>
+        <CardContent>
           <Card>
             <CardHeader>
-              <CardTitle>Profile</CardTitle>
+              <CardTitle>Avatar</CardTitle>
             </CardHeader>
             <CardContent>
-              <CardHeader className="gap-2">
-                {userData ? (
-                  <>
-                    <h1>User ID:{userData.id}</h1>
-                    <h1>User Email: {userData.email}</h1>
-                  </>
+              <Avatar className="h-44 w-44 sm:h-60 sm:w-60">
+                {profile.avatar_url ? (
+                  <AvatarImage src={profile.avatar_url}></AvatarImage>
                 ) : (
-                  <>
-                    <Skeleton className="h-5 w-1/5" />
-                    <Skeleton className="h-4 w-4/5" />
-                  </>
+                  <AvatarFallback>
+                    <span className="sr-only">{profile.username}</span>
+                    <Icons.user className="h-20 w-20" />
+                  </AvatarFallback>
                 )}
-              </CardHeader>
+              </Avatar>
             </CardContent>
+            <CardHeader>
+              <CardTitle>Name</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {profile.full_name
+                ? profile.full_name
+                : "Please go in settings and add your full name"}
+            </CardContent>
+            <CardHeader>
+              <CardTitle>Username</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {profile.username
+                ? profile.username
+                : "Please go in settings and add a user name"}
+            </CardContent>
+            <CardHeader>
+              <CardTitle>Website</CardTitle>
+            </CardHeader>
+            <CardContent>{profile?.website ? profile.website : "Please go in settings and add a website"}</CardContent>
           </Card>
-        </>
-      )}
+        </CardContent>
+      </Card>
     </>
   )
 }
