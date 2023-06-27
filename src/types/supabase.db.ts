@@ -110,6 +110,7 @@ export interface Database {
       profiles: {
         Row: {
           avatar_url: string | null
+          bio: string | null
           full_name: string | null
           id: string
           updated_at: string | null
@@ -118,6 +119,7 @@ export interface Database {
         }
         Insert: {
           avatar_url?: string | null
+          bio?: string | null
           full_name?: string | null
           id: string
           updated_at?: string | null
@@ -126,6 +128,7 @@ export interface Database {
         }
         Update: {
           avatar_url?: string | null
+          bio?: string | null
           full_name?: string | null
           id?: string
           updated_at?: string | null
@@ -203,37 +206,6 @@ export interface Database {
           {
             foreignKeyName: "subscriptions_user_id_fkey"
             columns: ["user_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
-      users: {
-        Row: {
-          avatar_url: string | null
-          billing_address: Json | null
-          full_name: string | null
-          id: string
-          payment_method: Json | null
-        }
-        Insert: {
-          avatar_url?: string | null
-          billing_address?: Json | null
-          full_name?: string | null
-          id: string
-          payment_method?: Json | null
-        }
-        Update: {
-          avatar_url?: string | null
-          billing_address?: Json | null
-          full_name?: string | null
-          id?: string
-          payment_method?: Json | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "users_id_fkey"
-            columns: ["id"]
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
