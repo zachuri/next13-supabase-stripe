@@ -14,7 +14,7 @@ export default function Page() {
       <Card>
         <CardHeader>
           <CardTitle>
-            <h2 className="text-3xl font-bold tracking-tight">Card Title</h2>
+            <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
           </CardTitle>
           <CardDescription>Card Description</CardDescription>
         </CardHeader>
