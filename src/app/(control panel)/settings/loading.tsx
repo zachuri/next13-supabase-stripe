@@ -1,7 +1,7 @@
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
-import { DashboardHeader } from "@/components/header"
-import { DashboardShell } from "@/components/shell"
+import { ControlPanelHeader } from "@/components/header"
+import { ControlPanelShell } from "@/components/shell"
 
 function CardSkeleton() {
   return (
@@ -35,14 +35,14 @@ function CardSkeleton() {
 
 export default function SettingsLoading() {
   return (
-    <DashboardShell>
-      <DashboardHeader
+    <ControlPanelShell>
+      <ControlPanelHeader
         heading="Settings"
         text="Manage account and website settings."
       />
       <div className="grid gap-10">
         <CardSkeleton />
       </div>
-    </DashboardShell>
+    </ControlPanelShell>
   )
 }
