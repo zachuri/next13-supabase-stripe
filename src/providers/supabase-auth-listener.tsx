@@ -30,7 +30,8 @@ export default function SupabaseAuthListener({ serverAccessToken }: Props) {
       }
 
       if (
-        event === "SIGNED_OUT" ||
+        // Uncomment it you want to always go to /login page
+        // event === "SIGNED_OUT" ||
         !session?.expires_at ||
         session?.expires_at <= Math.floor(Date.now() / 1000)
       ) {
